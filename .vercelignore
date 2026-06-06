@@ -1,0 +1,15 @@
+.dart_tool/
+.gradle/
+.idea/
+build/
+build_final/
+build_new1/
+build_v4/
+build_v7/
+extracted_apk/
+ios/
+android/
+macos/
+windows/
+linux/
+build_new/

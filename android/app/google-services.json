@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "192169687988",
+    "project_id": "qanoonbuddy-d60d4",
+    "storage_bucket": "qanoonbuddy-d60d4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192169687988:android:081a870d2b799c555590e1",
+        "android_client_info": {
+          "package_name": "com.example.qanoon_buddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192169687988-97j933da273toh46km24siq0b0kjfb3m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.qanoon_buddy",
+            "certificate_hash": "fe404efa9a0ed18fd8dc8125fa9da8ac7c96ebf6"
+          }
+        },
+        {
+          "client_id": "192169687988-bop0igec39t8tcpjt04ej9p9g25t6lj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0qW3QpJgUeaf5WOy1r1bVNKqTr_SF0Ag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192169687988-bop0igec39t8tcpjt04ej9p9g25t6lj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

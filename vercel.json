@@ -1,0 +1,19 @@
+{
+  "buildCommand": null,
+  "outputDirectory": "build/web",
+  "installCommand": null,
+  "framework": null,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Pragma", "value": "no-cache" },
+        { "key": "Expires", "value": "0" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/((?!assets|canvaskit|icons|favicon|flutter|main|qanoon_buddy\\.apk).*)", "destination": "/index.html" }
+  ]
+}
