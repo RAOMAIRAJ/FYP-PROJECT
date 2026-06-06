@@ -31,7 +31,7 @@ class _LawyerReferralScreenState extends State<LawyerReferralScreen> {
 
       final network = await _apiService.getNetworkLawyers(token);
       final sent = await _apiService.getSentReferrals(token);
-      final received = await _apiService.getReceivedReferrals(token);
+      final received = await _apiService.getIncomingReferrals(token);
 
       setState(() {
         _network = network;
