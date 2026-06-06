@@ -1346,14 +1346,6 @@ Future<Map<String, dynamic>> voteIncident({
     return response.data;
   }
 
-  Future<List<dynamic>> getLawyerOrders(String token) async {
-    final response = await _dio.get(
-      '/marketplace/lawyer-orders',
-      options: Options(headers: {'Authorization': 'Bearer $token'}),
-    );
-    return response.data;
-  }
-
   Future<Map<String, dynamic>> updateOrderStatus(String id, String status, String token) async {
     final response = await _dio.patch(
       '/marketplace/orders/$id/status',
@@ -1475,22 +1467,6 @@ Future<Map<String, dynamic>> voteIncident({
     return response.data;
   }
 
-
-  Future<List<dynamic>> getNetworkLawyers(String token) async {
-    final response = await _dio.get(
-      '/lawyer/network',
-      options: Options(headers: {'Authorization': 'Bearer $token'}),
-    );
-    return response.data;
-  }
-
-  Future<List<dynamic>> getReceivedReferrals(String token) async {
-    final response = await _dio.get(
-      '/lawyer/referrals/received',
-      options: Options(headers: {'Authorization': 'Bearer $token'}),
-    );
-    return response.data;
-  }
 
 }
 
