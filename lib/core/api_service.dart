@@ -1381,6 +1381,15 @@ Future<Map<String, dynamic>> voteIncident({
     );
   }
 
+  Future<List<dynamic>> searchNetworkLawyers(String token, {String q = ""}) async {
+    final response = await _dio.get(
+      '/lawyer/network/search',
+      queryParameters: {'q': q},
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    return response.data;
+  }
+
   Future<Map<String, dynamic>> sendReferral({
     required String toLawyerId,
     String? consultationId,

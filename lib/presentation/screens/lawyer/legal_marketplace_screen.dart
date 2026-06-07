@@ -146,6 +146,8 @@ class _LegalMarketplaceScreenState extends State<LegalMarketplaceScreen> {
         appBar: AppBar(
           title: const Text('Legal Marketplace'),
           bottom: const TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
             tabs: [
               Tab(text: 'My Services'),
               Tab(text: 'Orders'),

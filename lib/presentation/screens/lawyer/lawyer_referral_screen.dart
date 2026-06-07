@@ -12,6 +12,7 @@ class LawyerReferralScreen extends StatefulWidget {
 class _LawyerReferralScreenState extends State<LawyerReferralScreen> {
   final ApiService _apiService = ApiService();
   bool _isLoading = true;
+  List<dynamic> _discoverLawyers = [];
   List<dynamic> _network = [];
   List<dynamic> _sentReferrals = [];
   List<dynamic> _receivedReferrals = [];
@@ -30,11 +31,13 @@ class _LawyerReferralScreenState extends State<LawyerReferralScreen> {
       if (token == null) throw Exception("Unauthorized");
 
       final network = await _apiService.getMyNetwork(token);
+      final discover = await _apiService.searchNetworkLawyers(token);
       final sent = await _apiService.getSentReferrals(token);
       final received = await _apiService.getIncomingReferrals(token);
 
       setState(() {
         _network = network;
+        _discoverLawyers = discover;
         _sentReferrals = sent;
         _receivedReferrals = received;
         _isLoading = false;
@@ -61,6 +64,21 @@ class _LawyerReferralScreenState extends State<LawyerReferralScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
+
+  Future<void> _addToNetwork(String lawyerId) async {
+    try {
+      const storage = FlutterSecureStorage();
+      final token = await storage.read(key: 'auth_token');
+      if (token == null) throw Exception("Unauthorized");
+      await _apiService.addToNetwork(lawyerId, token);
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Added to Network')));
+      _fetchData();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+    }
+  }
+
 
   Future<void> _showSendReferralDialog(Map<String, dynamic> lawyer) async {
     final TextEditingController _descController = TextEditingController();
@@ -104,13 +122,16 @@ class _LawyerReferralScreenState extends State<LawyerReferralScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Lawyer Network & Referrals'),
           bottom: const TabBar(
             isScrollable: true,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
             tabs: [
+              Tab(text: 'Discover'),
               Tab(text: 'My Network'),
               Tab(text: 'Received'),
               Tab(text: 'Sent'),
@@ -121,6 +142,32 @@ class _LawyerReferralScreenState extends State<LawyerReferralScreen> {
             ? const Center(child: CircularProgressIndicator())
             : TabBarView(
                 children: [
+                  _discoverLawyers.isEmpty
+                      ? const Center(child: Text("No new lawyers found."))
+                      : ListView.builder(
+                          itemCount: _discoverLawyers.length,
+                          itemBuilder: (context, index) {
+                            final lawyer = _discoverLawyers[index];
+                            return ListTile(
+                              leading: const CircleAvatar(child: Icon(Icons.person)),
+                              title: Text(lawyer['name'] ?? lawyer['full_name'] ?? 'Lawyer'),
+                              subtitle: Text('${lawyer['specialization'] ?? 'General'} • ${lawyer['city'] ?? ''}'),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.person_add),
+                                    onPressed: () => _addToNetwork(lawyer['lawyer_id']),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.send),
+                                    onPressed: () => _showSendReferralDialog(lawyer),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                   _network.isEmpty
                       ? const Center(child: Text("No lawyers in your network yet."))
                       : ListView.builder(
