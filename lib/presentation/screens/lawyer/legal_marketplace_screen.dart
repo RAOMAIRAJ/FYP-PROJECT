@@ -89,11 +89,16 @@ class _LegalMarketplaceScreenState extends State<LegalMarketplaceScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(controller: _titleController, decoration: const InputDecoration(labelText: 'Title')),
+                const SizedBox(height: 12),
                 TextField(controller: _descController, decoration: const InputDecoration(labelText: 'Description'), maxLines: 2),
+                const SizedBox(height: 12),
                 TextField(controller: _priceController, decoration: const InputDecoration(labelText: 'Price (Rs.)'), keyboardType: TextInputType.number),
+                const SizedBox(height: 12),
                 TextField(controller: _daysController, decoration: const InputDecoration(labelText: 'Delivery Days'), keyboardType: TextInputType.number),
+                const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
                   value: _category,
+                  isExpanded: true,
                   items: const [
                     DropdownMenuItem(value: "consultation", child: Text("Consultation")),
                     DropdownMenuItem(value: "drafting", child: Text("Drafting")),
